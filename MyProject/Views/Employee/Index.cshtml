@@ -1,0 +1,81 @@
+﻿@model IEnumerable<MyProject.Models.MvcEmployeeModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a  href="@Url.Action("Create", "Employee" ) " > <i class="fa fa-plus"></i> Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpolyeeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpolyeeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Position)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Create", new {  id=item.EmpolyeeId  }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            <a onclick="Delete(@item.EmpolyeeId)" style="cursor:pointer">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+@section scripts { <script>
+         
+    $(function () {
+        var successmessage = '@TempData["Message"]';
+        if (successmessage != '')
+            alertify.success(successmessage)
+
+    }); 
+
+    function Delete(id) {
+        alertify.confirm("Web APi CRUD Operations , ARE YOU SURE TO DELETE THIS ITEM ?!", function () {
+            window.location.href = '@Url.Action("Delete","Employee")/' + id;
+
+        }, null);
+    }
+
+
+
+
+        
+</script>
+
+}
